@@ -5,9 +5,10 @@ import nextstep.utils.*;
 
 public class Application {
     public static void main(String[] args) {
-        String inputValue = getValues();
         int[] randomNumber = getRandomNumber();
+        String inputValue = getValues();
         int[] counts = getCounts(inputValue, randomNumber);
+        boolean gameEnd = checkCounts(counts);
     }
 
     // 사용자 입력을 받는 함수
@@ -74,5 +75,29 @@ public class Application {
         }
 
         return counts;
+    }
+
+    // 카운트 판별하는 함수, 반환 값은 게임종료
+    public static boolean checkCounts(int[] counts) {
+        int strike = counts[0];
+        int ball = counts[1];
+        String printString = "";
+
+        if(strike == 3) {
+            System.out.println("3스트라이크");
+            System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임종료");
+            return true;
+        }
+        if(strike > 0) {
+            printString = printString + strike + "스트라이크 ";
+        }
+        if(ball > 0) {
+            printString = printString + ball + "볼";
+        }
+        if(strike == 0 && ball == 0) {
+            printString = "낫싱";
+        }
+        System.out.println(printString);
+        return false;
     }
 }
