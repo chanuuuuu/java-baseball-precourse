@@ -6,6 +6,7 @@ import nextstep.utils.*;
 public class Application {
     public static void main(String[] args) {
         String inputValue = getValues();
+        int [] randomNumber = getRandomNumber();
     }
 
     // 사용자 입력을 받는 함수
@@ -38,6 +39,23 @@ public class Application {
         if(valueLine.length() != 3) {
             throw new InputMismatchException();
         }
+    }
+
+    // 난수 3자리 생성
+    public static int[] getRandomNumber() {
+        int[] randomNumberArray = new int[3];
+        for (int i = 0; i < 3; i++) {
+            String str = Arrays.toString(randomNumberArray).replaceAll("[^0-9]","");
+            while(true) {
+                int randomNumber = Randoms.pickNumberInRange(1, 9);
+                if(!str.contains(Integer.toString(randomNumber))){
+                    randomNumberArray[i] = randomNumber;
+                    break;
+                }
+            }
+        }
+        System.out.println("난수 값은 : " + Arrays.toString(randomNumberArray));
+        return randomNumberArray;
     }
 
 }
