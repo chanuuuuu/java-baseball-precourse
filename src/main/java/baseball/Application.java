@@ -5,10 +5,30 @@ import nextstep.utils.*;
 
 public class Application {
     public static void main(String[] args) {
-        int[] randomNumber = getRandomNumber();
-        String inputValue = getValues();
-        int[] counts = getCounts(inputValue, randomNumber);
-        boolean gameEnd = checkCounts(counts);
+        int[] 컴퓨터난수 = getRandomNumber();
+
+        while(true) {
+            String 사용자입력값 = getValues();
+            int[] 볼카운트 = getCounts(사용자입력값, 컴퓨터난수);
+            boolean 게임종료 = checkCounts(볼카운트);
+            if(게임종료) {
+                boolean 게임지속여부 = checkContinue();
+                if(게임지속여부) {
+                    컴퓨터난수 = getRandomNumber();
+                } else {
+                    System.out.println("게임 끝");
+                    break;
+                }
+            }
+        }
+    }
+
+    // 게임 지속 여부를 확인하는 함수
+    public static boolean checkContinue() {
+        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. : ");
+        String valueLine = Console.readLine();
+        int value = Integer.parseInt(valueLine);
+        return value == 1;
     }
 
     // 사용자 입력을 받는 함수
@@ -37,6 +57,7 @@ public class Application {
         return Integer.toString(value);
     }
 
+    // 사용자 입력의 길이를 검증하는 함수
     public static void checkValueSize(String valueLine) {
         if(valueLine.length() != 3) {
             throw new InputMismatchException();
