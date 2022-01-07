@@ -6,7 +6,8 @@ import nextstep.utils.*;
 public class Application {
     public static void main(String[] args) {
         String inputValue = getValues();
-        int [] randomNumber = getRandomNumber();
+        int[] randomNumber = getRandomNumber();
+        int[] counts = getCounts(inputValue, randomNumber);
     }
 
     // 사용자 입력을 받는 함수
@@ -58,4 +59,20 @@ public class Application {
         return randomNumberArray;
     }
 
+    // 스트라이크, 볼의 갯수를 반환하는 함수
+    public static int[] getCounts(String inputValue, int[] randomValue) {
+        int[] counts = new int[2];
+
+        for(int i = 0; i < 3; i++){
+            int valueIndex = inputValue.indexOf(Integer.toString(randomValue[i]));
+            if(valueIndex == i) {
+                counts[0]++;
+            }
+            else if(valueIndex != -1) {
+                counts[1]++;
+            }
+        }
+
+        return counts;
+    }
 }
