@@ -8,7 +8,7 @@ public class Application {
         int[] 컴퓨터난수 = getRandomNumber();
 
         while(true) {
-            String 사용자입력값 = getValues();
+            String 사용자입력값 = getValues("숫자를 입력해 주세요 : ", 3 );
             int[] 볼카운트 = getCounts(사용자입력값, 컴퓨터난수);
             boolean 게임종료 = checkCounts(볼카운트);
             if(게임종료) {
@@ -25,41 +25,48 @@ public class Application {
 
     // 게임 지속 여부를 확인하는 함수
     public static boolean checkContinue() {
-        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. : ");
-        String valueLine = Console.readLine();
-        int value = Integer.parseInt(valueLine);
+        int value;
+        while(true) {
+            String 사용자입력값 = getValues("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. : ", 1 );
+            value = Integer.parseInt(사용자입력값);
+            if(value == 1 || value == 2) {
+                break;
+            }else {
+                System.out.println("[ERROR] 올바르지 않은 값의 입력입니다.");
+            }
+        }
         return value == 1;
     }
 
     // 사용자 입력을 받는 함수
-    public static String getValues() {
-        System.out.print("숫자를 입력해 주세요 : ");
+    public static String getValues(String title, int valueLength) {
+        System.out.print(title);
         String valueLine;
         int value;
         while(true) {
             valueLine = Console.readLine();
             try{
                 // 잘못된 입력의 길이를 확인하는 작업
-                checkValueSize(valueLine);
+                checkValueSize(valueLine, valueLength);
 
                 // 입력받은 라인을 정수로 변환하는 작업
                 value = Integer.parseInt(valueLine);
                 break;
             } catch(NumberFormatException e) {
                 // 실제 숫자 확인
-                System.out.print("형식이 잘못된 입력입니다. 다시 입력하세요 :  ");
+                System.out.print("[ERROR] 형식이 잘못된 입력입니다. 다시 입력하세요 :  ");
 
             } catch(InputMismatchException ime) {
                 // 길이 확인
-                System.out.print("잘못된 입력의 길이입니다. 다시 입력하세요 :  ");
+                System.out.print("[ERROR] 잘못된 입력의 길이입니다. 다시 입력하세요 :  ");
             }
         }
         return Integer.toString(value);
     }
 
     // 사용자 입력의 길이를 검증하는 함수
-    public static void checkValueSize(String valueLine) {
-        if(valueLine.length() != 3) {
+    public static void checkValueSize(String valueLine, int valueLength) {
+        if(valueLine.length() != valueLength) {
             throw new InputMismatchException();
         }
     }
