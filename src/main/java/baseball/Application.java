@@ -112,15 +112,14 @@ public class Application {
         String printString = "";
 
         if(strike == 3) {
-            System.out.println("3스트라이크");
-            System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임종료");
+            System.out.println("3스트라이크 \n3개의 숫자를 모두 맞히셨습니다! 게임종료");
             return true;
         }
         if(strike > 0) {
-            printString = printString + strike + "스트라이크 ";
+            printString += strike + "스트라이크 ";
         }
         if(ball > 0) {
-            printString = printString + ball + "볼";
+            printString += ball + "볼";
         }
         if(strike == 0 && ball == 0) {
             printString = "낫싱";
