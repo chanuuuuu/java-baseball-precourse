@@ -33,18 +33,27 @@ public class Pitcher {
      * 게임 내의 맞춰야하는 숫자의 갯수인 ballCounts에 해당하는 길이의 컴퓨팅된 난수를 생성한다.
      */
     private void setRandomNumber() {
-        int[] checked = new int[10];
+        int[] checkArray = new int[10];
         for (int i = 0; i < this.ballCounts; i++) {
-            while(true) {
-                int randomNumber = Randoms.pickNumberInRange(1, 9);
-                if(checked[randomNumber] != 1) {
-                    this.randomNumber[i] = randomNumber;
-                    checked[randomNumber] = 1;
-                    break;
-                }
-            }
+            int uniqueNumber = getUniqueNumber(checkArray);
+            this.randomNumber[i] = uniqueNumber;
+            checkArray[uniqueNumber] = 1;
         }
         System.out.println("난수 값은 : " + Arrays.toString(this.randomNumber));
+    }
+
+    /**
+     * 이전까지의 난수중 중복되지 않는 정수값 생성
+     * @param checkArray    이전까지의 난수 히스토리
+     * @return int          중복되지않은 정수값
+     */
+    private int getUniqueNumber(final int[] checkArray) {
+        while(true) {
+            int uniqueNumber = Randoms.pickNumberInRange(1, 9);
+            if(checkArray[uniqueNumber] != 1) {
+                return uniqueNumber;
+            }
+        }
     }
 
     /**
