@@ -1,6 +1,7 @@
 package baseball;
 
 public class Application {
+    /** 게임 내의 맞춰야하는 숫자의 갯수, 기본값은 3 */
     private final static int BALL_COUNTS = 3;
 
     public static void main(String[] args) {
@@ -25,6 +26,10 @@ public class Application {
         }
     }
 
+    /**
+     * 게임의 종료 조건 이후, 다른 게임의 실행 여부를 확인하는 함수
+     * @return  boolean 게임 재시작 여부
+     */
     private static boolean checkGameContinue() {
         System.out.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. : ");
         while(true) {
