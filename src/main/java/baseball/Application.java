@@ -5,16 +5,15 @@ public class Application {
     private final static int BALL_COUNTS = 3;
 
     public static void main(String[] args) {
-        playGame();
+        play();
     }
 
-    private static void playGame() {
+    private static void play() {
         Pitcher pitcher = new Pitcher(BALL_COUNTS);
         while(true) {
-            System.out.print("숫자를 입력해 주세요 : ");
-            String 사용자입력값 = GameConsole.read(BALL_COUNTS);
-            boolean 게임지속여부 = playRound(pitcher, 사용자입력값);
-            if(게임지속여부) {
+            playGame(pitcher);
+            boolean 게임지속여부 = checkGameContinue();
+            if (게임지속여부) {
                 pitcher.init();
             } else {
                 System.out.println("게임 끝");
@@ -24,17 +23,18 @@ public class Application {
     }
 
     /**
-     * 사용자 입력값을 통해 라운드를 진행하고 라운드 종료 조건시에 게임지속여부를 판단한다.
-     * @param pitcher       게임을 진행할 난수를 가진 컴퓨터
-     * @param 사용자입력값     검증된 사용자의 입력값
-     * @return  boolean     게임 지속 여부
+     * 라운드를 반복하는 게임을 1회 진행
+     * @param pitcher   난수를 가진 컴퓨터 객체
      */
-    private static boolean playRound(final Pitcher pitcher, final String 사용자입력값) {
-        boolean 라운드종료여부 = pitcher.round(사용자입력값);
-        if(라운드종료여부) {
-            return  checkGameContinue();
+    private static void playGame(final Pitcher pitcher) {
+        while(true) {
+            System.out.print("숫자를 입력해 주세요 : ");
+            String 사용자입력값 = GameConsole.read(BALL_COUNTS);
+            boolean 라운드종료여부 = pitcher.round(사용자입력값);
+            if(라운드종료여부) {
+                break;
+            }
         }
-        return false;
     }
 
     /**
