@@ -33,12 +33,13 @@ public class Pitcher {
      * 게임 내의 맞춰야하는 숫자의 갯수인 ballCounts에 해당하는 길이의 컴퓨팅된 난수를 생성한다.
      */
     private void setRandomNumber() {
+        int[] checked = new int[10];
         for (int i = 0; i < this.ballCounts; i++) {
-            String str = Arrays.toString(this.randomNumber).replaceAll("[^0-9]","");
             while(true) {
                 int randomNumber = Randoms.pickNumberInRange(1, 9);
-                if(!str.contains(Integer.toString(randomNumber))){
+                if(checked[randomNumber] != 1) {
                     this.randomNumber[i] = randomNumber;
+                    checked[randomNumber] = 1;
                     break;
                 }
             }
